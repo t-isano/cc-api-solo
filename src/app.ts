@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import path from "path";
 import { Middleware, ErrorHandlingMiddleware } from "./middleware/types";
 import BaseController from "./services/common/controller";
 import bodyParser from "body-parser";
@@ -41,10 +42,14 @@ class App {
     this.appSecret = appSecret;
 
     this.app = express();
+    this.app.use(express.static(path.join(__dirname, "/public")));
+    this.app.use(express.json()); // レスポンスをすべてJSON形式で返す
+
     this.app.set("APP_SECRET", this.appSecret);
     this.app.set("authManager", new AuthManagerClass(this.appSecret));
 
-    this.port = port || App.DEFAULT_PORT;
+    // this.port = port || App.DEFAULT_PORT;
+    this.port = 5000 || App.DEFAULT_PORT;
 
     this.registerMiddleware(middleware);
     this.registerServices(services);
