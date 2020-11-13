@@ -9,9 +9,17 @@
   "private": false,
   "scripts": {
     "start": "node ./src/index.js",
+    "testConnection": "ts-node -r dotenv/config src/scripts/testConnection.ts",
     "dev": "nodemon ./src/index.js",
     "lint": "eslint --fix --ext .js .",
-    "test": "mocha test && yarn lint"
+    "test": "mocha test && yarn lint",
+    "orm": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
+    "makeMigrations": "yarn orm migration:generate",
+    "migrate": "yarn orm migration:run",
+    "rollback": "yarn orm migration:'",
+    "seeder": "ts-node -r dotenv/config ./node_modules/typeorm-seeding/dist/cli.js",
+    "seed": "yarn seeder --configName src/ormconfig.ts seed",
+    "pre-commit": "yarn lint"
   },
   "husky": {
     "hooks": {

@@ -26,7 +26,7 @@ export = {
 */
   username: "isano",
   password: "isano",
-  database: "expense_manager",
+  database: "mcu",
   entities: ["src/entities/**/*.ts"],
   migrations: ["src/migrations/**/*.ts"],
   seeds: ["src/seeds/**/*.ts"],
