@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 import _ from "lodash";
 import CharacterManager from "./manager";
 import BaseController from "../common/controller";
-import { guarded } from "../../authentication";
+// import { guarded } from "../../authentication";
 
 /**
  * FIXME
@@ -12,7 +12,7 @@ import { guarded } from "../../authentication";
  *   perform operations on the specified User object
  */
 class CharacterController extends BaseController {
-  public path: string = "/users";
+  public path: string = "/characters";
   public router: Router;
 
   protected manager: CharacterManager;
@@ -29,10 +29,11 @@ class CharacterController extends BaseController {
   protected createRouter(): Router {
     const router = Router();
 
-    router.get("/:charId", guarded(this.get));
+    router.get("/", this.get);
+    router.get("/:charId", this.get);
     router.post("/", this.post);
-    router.patch("/:charId", guarded(this.patch));
-    router.delete("/:charId", guarded(this.delete));
+    router.patch("/:charId", this.patch);
+    router.delete("/:charId", this.delete);
 
     return router;
   }
@@ -46,16 +47,41 @@ class CharacterController extends BaseController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { userId: charId } = req.params;
-      const char = await this.manager.getCharcter(charId);
-      if (!char) {
-        res.status(404).send({ error: "character not found" });
-        return;
-      }
+      if (!req.params.charId) {
+        const char = await this.manager.getAllCharacters();
+        if (!char) {
+          res.status(404).send({ error: "character not found" });
+          return;
+        }
 
-      res.json(
-        _.pick(char, ["id", "realName", "superName", "genderId", "typesId"])
-      );
+        res.json(char);
+      } else {
+        const { charId } = req.params;
+        // console.info(charId);
+        const char = await this.manager.getCharcter(charId);
+        // console.info(char);
+        if (!char) {
+          res.status(404).send({ error: "character not found" });
+          return;
+        }
+
+        res.json(char);
+        // res.json(_.pick(
+        //   char, ["id", "realName", "superName", "genderId", "typesId"]
+        // ));
+      }
+      // const { charId } = req.params;
+      // // console.info(charId);
+      // const char = await this.manager.getCharcter(charId);
+      // // console.info(char);
+      // if (!char) {
+      //   res.status(404).send({ error: "character not found" });
+      //   return;
+      // }
+
+      // res.json(_.pick(
+      //   char, ["id", "realName", "superName", "genderId", "typesId"]
+      // ));
     } catch (err) {
       // Delegate error handling to Express
       // with our custom error handler in
@@ -91,7 +117,7 @@ class CharacterController extends BaseController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { userId: charId } = req.params;
+      const { charId } = req.params;
       const newCharDetails = req.body;
       const updatedChar = await this.manager.updateCharacter(
         charId,

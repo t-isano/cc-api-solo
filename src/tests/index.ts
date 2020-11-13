@@ -70,11 +70,19 @@ describe("mcu manager", () => {
      */
   });
 
-  describe("Auth and user services", () => {
+  describe("get character services", () => {
     // it("should restrict access by unauthenticated user", async () => {
     it("should get a character", async () => {
       const res = await chai.request(app).get(`/characters/${TEST_CHAR_ID}`);
       expect(res).to.have.status(200);
+      const expected = {
+        id: "3461cac2-35bd-4d45-a163-f220beb43d76",
+        realName: "tester",
+        superName: "Super-Test",
+        genderId: 2,
+        typesId: 2,
+      };
+      // expect(res).to.deep.equal(expected);
     });
   });
 });

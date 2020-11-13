@@ -33,15 +33,25 @@ class CharacterManager implements IManager {
   }
 
   /**
-   * Get user by primary key
+   * Get character by primary key
    *
    * FIXME
    */
-  public async getCharcter(charId: string): Promise<Characters> {
-    const char = await this.charactersRepository.findOne(charId);
-    // if (!user) {
-    //   throw new Error("userId not found");
+  public async getAllCharacters(): Promise<Characters[]> {
+    const char = await this.charactersRepository.find();
+    // if (!char) {
+    //   throw new Error("charcter not found");
     // }
+
+    return char;
+    // return Promise.resolve(new User());
+  }
+
+  public async getCharcter(charId: string): Promise<Characters> {
+    const char = await this.charactersRepository.findOne({ id: charId });
+    if (!char) {
+      throw new Error("charcterId not found");
+    }
 
     return char;
     // return Promise.resolve(new User());
