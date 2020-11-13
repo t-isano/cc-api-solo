@@ -15,18 +15,69 @@ import chaiHttp from "chai-http";
 import { Application } from "express";
 import { getRepository, Repository, Not, IsNull } from "typeorm";
 import { v4 as uuid4 } from "uuid";
-// import DatabaseConnectionManager from "../database";
-// import { getDefaultApp } from "../app";
+import DatabaseConnectionManager from "../database";
+import { getDefaultApp } from "../app";
+import Characters from "../entities/CharacterModel";
+// import Films from "../entities/FilmsModel";
+// import Characters from "../entities/CharactersModel";
 // import User from "../entities/UserModel";
 // import Transaction from "../entities/TransactionModel";
 // import Account from "../entities/AccountModel";
 // import TransactionManager from "../services/transactions/manager";
 
-// chai.use(chaiHttp);
+chai.use(chaiHttp);
 
-// const expect = chai.expect;
+const expect = chai.expect;
 
-// describe("expense manager", () => {
+describe("mcu manager", () => {
+  const APP_SECRET = "xxxyyyxxxyyy";
+  const TEST_CHAR_ID = "3461cac2-35bd-4d45-a163-f220beb43d76";
+  const TEST_ACCOUNT_ID = "655f6179-543f-45e7-a4ae-69bd9f179c52";
+
+  let app: Application;
+  let charRepo: Repository<Characters>;
+  // let accountRepo: Repository<Account>;
+  // let transactionRepo: Repository<Transaction>;
+
+  before(async () => {
+    await DatabaseConnectionManager.connect();
+
+    app = getDefaultApp(APP_SECRET).app;
+    charRepo = getRepository(Characters);
+  });
+
+  // after(async () => {
+  //   await charRepo.delete({ id: Not(IsNull()) });
+  // });
+
+  beforeEach(async () => {
+    /**
+     * Restore our test user
+     * username: tester
+     * password: tester
+     */
+    let testChar = new Characters();
+    testChar.id = TEST_CHAR_ID;
+    testChar.realName = "tester";
+    testChar.superName = "Super-Test";
+    testChar.genderId = 2;
+    testChar.typesId = 2;
+    testChar = await charRepo.save(testChar);
+
+    /**
+     * Advanced Requirements:
+     * - Create and use a dedicated test database
+     */
+  });
+
+  describe("Auth and user services", () => {
+    // it("should restrict access by unauthenticated user", async () => {
+    it("should get a character", async () => {
+      const res = await chai.request(app).get(`/characters/${TEST_CHAR_ID}`);
+      expect(res).to.have.status(200);
+    });
+  });
+});
 //   const APP_SECRET = "xxxyyyxxxyyy";
 //   const TEST_USER_ID = "3461cac2-35bd-4d45-a163-f220beb43d76";
 //   const TEST_ACCOUNT_ID = "655f6179-543f-45e7-a4ae-69bd9f179c52";

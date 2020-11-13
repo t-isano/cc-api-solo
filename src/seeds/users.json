@@ -2,7 +2,31 @@
   {
     "realName": "Tony Stark",
     "superName": "Iron Man",
-    "gender": 1,
-    "types": 1
+    "genderId": 1,
+    "typesId": 1
+  },
+  {
+    "realName": "Steve Rojers",
+    "superName": "Captain America",
+    "genderId": 1,
+    "typesId": 1
+  },
+  {
+    "realName": "Thor Odinson",
+    "superName": "Thor",
+    "genderId": 1,
+    "typesId": 1
+  },
+  {
+    "realName": "Peter Parker",
+    "superName": "Spider-Man",
+    "genderId": 1,
+    "typesId": 1
+  },
+  {
+    "realName": "Natasha Romanoff",
+    "superName": "Black Widow",
+    "genderId": 2,
+    "typesId": 1
   }
 ]

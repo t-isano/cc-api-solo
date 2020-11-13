@@ -4,11 +4,11 @@ import BaseController from "./services/common/controller";
 import bodyParser from "body-parser";
 import loggerMiddleware from "./middleware/logger";
 import AuthController from "./services/auth/controller";
-import UserController from "./services/users/controller";
+import CharacterController from "./services/characters/controller";
 import errorHandler from "./middleware/errorHandler";
 import AuthManager from "./services/auth/manager";
-import AccountController from "./services/accounts/controller";
-import TransactionController from "./services/transactions/controller";
+// import AccountController from "./services/accounts/controller";
+// import TransactionController from "./services/transactions/controller";
 
 interface AppConfig {
   appSecret: string;
@@ -103,9 +103,9 @@ export function getDefaultApp(appSecret: string) {
     services: [
       /* Where we register our services */
       new AuthController(appSecret),
-      new UserController(),
-      new AccountController(),
-      new TransactionController(),
+      new CharacterController(),
+      // new AccountController(),
+      // new TransactionController(),
     ],
     middleware: [
       /* Body Parser, see: https://stackoverflow.com/questions/38306569/what-does-body-parser-do-with-express */

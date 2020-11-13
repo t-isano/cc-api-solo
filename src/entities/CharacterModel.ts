@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  ManyToOne,
+} from "typeorm";
+import Gender from "./Gender";
+import Types from "./Types";
 
 @Entity({ name: "characters" })
 class Characters {
@@ -16,11 +24,10 @@ class Characters {
   public superName: string;
 
   @Column()
-  public gender: number;
+  public genderId: number;
 
-  // Heros or Villans or other?
   @Column()
-  public types: number;
+  public typesId: number;
 }
 
 export default Characters;

@@ -13,6 +13,7 @@
     "dev": "nodemon ./src/index.js",
     "lint": "eslint --fix --ext .js .",
     "test": "mocha test && yarn lint",
+    "testorm": "mocha --inspect -r ts-node/register -r dotenv/config src/tests/index.ts",
     "orm": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
     "makeMigrations": "yarn orm migration:generate",
     "migrate": "yarn orm migration:run",
