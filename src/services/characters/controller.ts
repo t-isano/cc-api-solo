@@ -113,7 +113,8 @@ class CharacterController extends BaseController {
         newCharDetails
       );
 
-      res.json(_.pick(updatedChar, ["id", "realName", "superName"]));
+      // res.json(_.pick(updatedChar, ["id", "realName", "superName"]));
+      res.json(updatedChar);
     } catch (err) {
       next(err);
     }

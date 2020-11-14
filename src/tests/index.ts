@@ -106,6 +106,21 @@ describe("mcu manager", () => {
       const expected = await charRepo.findOne(TEST_POST_ID);
       expect(res.body).to.deep.equal(expected);
     });
+
+    it("should patch to udpate a scharacter", async () => {
+      // Setup
+      const patchChar = {
+        realName: "Test Patch",
+        superName: "Super-TestPatch",
+      };
+      const res = await chai
+        .request(app)
+        .patch(`/characters/${TEST_POST_ID}`)
+        .send(patchChar);
+      expect(res).to.have.status(200);
+      const expected = await charRepo.findOne(TEST_POST_ID);
+      expect(res.body).to.deep.equal(expected);
+    });
   });
 });
 //   const APP_SECRET = "xxxyyyxxxyyy";
