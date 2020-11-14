@@ -1,15 +1,15 @@
 import jwt from "jsonwebtoken";
 import CharacterManager from "../characters/manager";
-import User from "../../entities/CharacterModel";
+import Characters from "../../entities/CharacterModel";
 import { IManager } from "../common/manager";
 
 class AuthManager implements IManager {
   protected secret: string;
-  protected userManager: CharacterManager;
+  protected charManager: CharacterManager;
 
   constructor(secret: string) {
     this.secret = secret;
-    this.userManager = new CharacterManager();
+    this.charManager = new CharacterManager();
   }
 
   // /**
@@ -40,13 +40,13 @@ class AuthManager implements IManager {
   /**
    * - Verifies JWT token and return the User object
    */
-  public async verifyTokenAndGetUser(token: string): Promise<User> {
+  public async verifyTokenAndGetUser(token: string): Promise<Characters> {
     try {
       const payload: { [key: string]: any } = jwt.verify(
         token,
         this.secret
       ) as { [key: string]: any };
-      const user: User = await this.userManager.getCharcter(
+      const user: Characters = await this.charManager.getCharcterById(
         payload.id || payload.data.id
       );
       return user;

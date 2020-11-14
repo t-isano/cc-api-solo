@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import _ from "lodash";
+import validator from "validator";
 import CharacterManager from "./manager";
 import BaseController from "../common/controller";
 // import { guarded } from "../../authentication";
@@ -30,7 +31,7 @@ class CharacterController extends BaseController {
     const router = Router();
 
     router.get("/", this.get);
-    router.get("/:charId", this.get);
+    router.get("/:search", this.get);
     router.post("/", this.post);
     router.patch("/:charId", this.patch);
     router.delete("/:charId", this.delete);
@@ -47,8 +48,8 @@ class CharacterController extends BaseController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      if (!req.params.charId) {
-        // paramのcharIdがない場合、全県取得
+      if (!req.params.search) {
+        // paramのsearchがない場合、全県取得
         const char = await this.manager.getAllCharacters();
         if (!char) {
           res.status(404).send({ error: "character not found" });
@@ -58,9 +59,18 @@ class CharacterController extends BaseController {
         res.json(char);
       } else {
         // paramのcharIdがある場合、1人分取得する。
-        const { charId } = req.params;
-        const char = await this.manager.getCharcter(charId);
+        const { search } = req.params;
+        let char;
+        if (validator.isUUID(search)) {
+          //search が UUID 形式の場合
+          char = await this.manager.getCharcterById(search);
+        } else {
+          //search が UUID 形式ではない場合
+          char = await this.manager.getCharcterByName(search);
+        }
+
         if (!char) {
+          // IDで取得できない場合、nameで再取得
           res.status(404).send({ error: "character not found" });
           return;
         }

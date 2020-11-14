@@ -47,14 +47,25 @@ class CharacterManager implements IManager {
     // return Promise.resolve(new User());
   }
 
-  public async getCharcter(charId: string): Promise<Characters> {
-    const char = await this.charactersRepository.findOne({ id: charId });
+  public async getCharcterById(search: string): Promise<Characters> {
+    const char = await this.charactersRepository.findOne({ id: search });
     if (!char) {
       throw new Error("charcterId not found");
     }
 
     return char;
-    // return Promise.resolve(new User());
+  }
+
+  public async getCharcterByName(search: string): Promise<Characters> {
+    let char = await this.charactersRepository.findOne({ realName: search });
+    if (!char) {
+      char = await this.charactersRepository.findOne({ superName: search });
+      if (!char) {
+        throw new Error("charcterId not found");
+      }
+    }
+
+    return char;
   }
 
   /**
@@ -89,7 +100,7 @@ class CharacterManager implements IManager {
     updates: Partial<Characters>
   ): Promise<Characters> {
     // const user = await this.userRepository.findOne( userId );
-    const char = await this.getCharcter(charId);
+    const char = await this.getCharcterById(charId);
     // if (!user) {
     //   throw new Error("userId not found");
     // }
@@ -117,7 +128,7 @@ class CharacterManager implements IManager {
    */
   public async removeCharacter(charId: string): Promise<DeleteResult | void> {
     // const user = await this.userRepository.findOne( userId );
-    const char = await this.getCharcter(charId);
+    const char = await this.getCharcterById(charId);
     // if (!user) {
     //   throw new Error("userId not found");
     // }

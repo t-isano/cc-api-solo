@@ -74,7 +74,7 @@ describe("mcu manager", () => {
 
   describe("character services", () => {
     // it("should restrict access by unauthenticated user", async () => {
-    it("should get a character", async () => {
+    it("should get a character by id", async () => {
       const res = await chai.request(app).get(`/characters/${TEST_CHAR_ID}`);
       expect(res).to.have.status(200);
       const expected = {
@@ -85,6 +85,20 @@ describe("mcu manager", () => {
         typesId: 2,
       };
       expect(res.body).to.deep.equal(expected);
+    });
+
+    it("should get a character by real name", async () => {
+      const testHeroName = "Tony Stark";
+      const res = await chai.request(app).get(`/characters/${testHeroName}`);
+      expect(res).to.have.status(200);
+      expect(res.body.realName).to.deep.equal(testHeroName);
+    });
+
+    it("should get a character by super name", async () => {
+      const testHeroName = "Iron Man";
+      const res = await chai.request(app).get(`/characters/${testHeroName}`);
+      expect(res).to.have.status(200);
+      expect(res.body.superName).to.deep.equal(testHeroName);
     });
 
     it("should get all characters", async () => {
