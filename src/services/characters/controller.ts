@@ -48,6 +48,7 @@ class CharacterController extends BaseController {
   ): Promise<void> => {
     try {
       if (!req.params.charId) {
+        // paramのcharIdがない場合、全県取得
         const char = await this.manager.getAllCharacters();
         if (!char) {
           res.status(404).send({ error: "character not found" });
@@ -56,10 +57,9 @@ class CharacterController extends BaseController {
 
         res.json(char);
       } else {
+        // paramのcharIdがある場合、1人分取得する。
         const { charId } = req.params;
-        // console.info(charId);
         const char = await this.manager.getCharcter(charId);
-        // console.info(char);
         if (!char) {
           res.status(404).send({ error: "character not found" });
           return;
@@ -70,18 +70,6 @@ class CharacterController extends BaseController {
         //   char, ["id", "realName", "superName", "genderId", "typesId"]
         // ));
       }
-      // const { charId } = req.params;
-      // // console.info(charId);
-      // const char = await this.manager.getCharcter(charId);
-      // // console.info(char);
-      // if (!char) {
-      //   res.status(404).send({ error: "character not found" });
-      //   return;
-      // }
-
-      // res.json(_.pick(
-      //   char, ["id", "realName", "superName", "genderId", "typesId"]
-      // ));
     } catch (err) {
       // Delegate error handling to Express
       // with our custom error handler in
@@ -102,7 +90,8 @@ class CharacterController extends BaseController {
       const charDetails = req.body;
       const char = await this.manager.createCharcter(charDetails);
 
-      res.status(201).json(_.pick(char, ["id", "realName", "superName"]));
+      // res.status(201).json(_.pick(char, ["id", "realName", "superName"]));
+      res.status(201).json(char);
     } catch (err) {
       next(err);
     }

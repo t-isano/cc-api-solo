@@ -61,7 +61,8 @@ class CharacterManager implements IManager {
    * Create a new user
    */
   public async createCharcter(
-    charDetails: Partial<CharactersInput>
+    // charDetails: Partial<CharactersInput>
+    charDetails: Partial<Characters>
   ): Promise<Characters> {
     // // 1. Hash password
     // const saltRound = 10;
@@ -69,6 +70,7 @@ class CharacterManager implements IManager {
 
     // 2. Create user
     const newChar = new Characters();
+    newChar.id = charDetails.id;
     newChar.realName = charDetails.realName;
     newChar.superName = charDetails.superName;
     newChar.genderId = charDetails.genderId;

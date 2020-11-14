@@ -32,7 +32,7 @@ const expect = chai.expect;
 describe("mcu manager", () => {
   const APP_SECRET = "xxxyyyxxxyyy";
   const TEST_CHAR_ID = "3461cac2-35bd-4d45-a163-f220beb43d76";
-  const TEST_ACCOUNT_ID = "655f6179-543f-45e7-a4ae-69bd9f179c52";
+  const TEST_POST_ID = "655f6179-543f-45e7-a4ae-69bd9f179c52";
 
   let app: Application;
   let charRepo: Repository<Characters>;
@@ -46,9 +46,11 @@ describe("mcu manager", () => {
     charRepo = getRepository(Characters);
   });
 
-  // after(async () => {
-  //   await charRepo.delete({ id: Not(IsNull()) });
-  // });
+  after(async () => {
+    // await charRepo.delete({ id: Not(IsNull()) });
+    await charRepo.delete({ id: TEST_CHAR_ID });
+    await charRepo.delete({ id: TEST_POST_ID });
+  });
 
   beforeEach(async () => {
     /**
@@ -70,7 +72,7 @@ describe("mcu manager", () => {
      */
   });
 
-  describe("get character services", () => {
+  describe("character services", () => {
     // it("should restrict access by unauthenticated user", async () => {
     it("should get a character", async () => {
       const res = await chai.request(app).get(`/characters/${TEST_CHAR_ID}`);
@@ -89,6 +91,19 @@ describe("mcu manager", () => {
       const res = await chai.request(app).get(`/characters/`);
       expect(res).to.have.status(200);
       const expected = await charRepo.find();
+      expect(res.body).to.deep.equal(expected);
+    });
+
+    it("should post to create a new character", async () => {
+      const res = await chai.request(app).post(`/characters/`).send({
+        id: TEST_POST_ID,
+        realName: "Test Post",
+        superName: "Super-TestPost",
+        genderId: 2,
+        typesId: 2,
+      });
+      expect(res).to.have.status(201);
+      const expected = await charRepo.findOne(TEST_POST_ID);
       expect(res.body).to.deep.equal(expected);
     });
   });
