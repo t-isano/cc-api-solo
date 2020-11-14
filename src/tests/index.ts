@@ -107,12 +107,14 @@ describe("mcu manager", () => {
       expect(res.body).to.deep.equal(expected);
     });
 
-    it("should patch to udpate a scharacter", async () => {
+    it("should patch to udpate a character", async () => {
       // Setup
       const patchChar = {
         realName: "Test Patch",
         superName: "Super-TestPatch",
       };
+
+      // Exercise
       const res = await chai
         .request(app)
         .patch(`/characters/${TEST_POST_ID}`)
@@ -120,6 +122,14 @@ describe("mcu manager", () => {
       expect(res).to.have.status(200);
       const expected = await charRepo.findOne(TEST_POST_ID);
       expect(res.body).to.deep.equal(expected);
+    });
+
+    it("should delete to remove a character", async () => {
+      // Setup
+
+      // Exercise
+      const res = await chai.request(app).delete(`/characters/${TEST_POST_ID}`);
+      expect(res).to.have.status(204);
     });
   });
 });

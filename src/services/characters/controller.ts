@@ -132,7 +132,7 @@ class CharacterController extends BaseController {
 
     try {
       await this.manager.removeCharacter(charId);
-      res.status(200).end();
+      res.status(204).end();
     } catch (err) {
       next(err);
     }
