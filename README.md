@@ -11,7 +11,7 @@ You may know the real name or super name of the HERO.
 ## related Characters
 
 APIs for Characters
-|Method| API | 内容 |
+|Method| API | Contents |
 |:------ | :---------------------- | :---------------------------------------------- |
 |GET|/characters | Get all characters information.|
 |GET|/characters/:char | Get characters information by `char`.|
@@ -24,7 +24,7 @@ APIs for Characters
 ## related Films （Not Implemented ）
 
 APIs for Films.
-|Method| API | 内容 |
+|Method| API | Contents |
 |:------ | :---------------------- | :---------------------------------------------- |
 |GET|/films | Get all films information.|
 |GET|/films/:film | Get films information by `film`.|
