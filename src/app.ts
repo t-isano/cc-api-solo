@@ -8,6 +8,7 @@ import AuthController from "./services/auth/controller";
 import CharacterController from "./services/characters/controller";
 import errorHandler from "./middleware/errorHandler";
 import AuthManager from "./services/auth/manager";
+import AppearController from "./services/appear/controller";
 // import AccountController from "./services/accounts/controller";
 // import TransactionController from "./services/transactions/controller";
 
@@ -109,6 +110,7 @@ export function getDefaultApp(appSecret: string) {
       /* Where we register our services */
       new AuthController(appSecret),
       new CharacterController(),
+      new AppearController(),
       // new AccountController(),
       // new TransactionController(),
     ],

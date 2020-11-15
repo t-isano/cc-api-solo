@@ -18,6 +18,7 @@ import { v4 as uuid4 } from "uuid";
 import DatabaseConnectionManager from "../database";
 import { getDefaultApp } from "../app";
 import Characters from "../entities/CharacterModel";
+import Appear from "../entities/AppearModel";
 // import Films from "../entities/FilmsModel";
 // import Characters from "../entities/CharactersModel";
 // import User from "../entities/UserModel";
@@ -33,9 +34,11 @@ describe("mcu manager", () => {
   const APP_SECRET = "xxxyyyxxxyyy";
   const TEST_CHAR_ID = "3461cac2-35bd-4d45-a163-f220beb43d76";
   const TEST_POST_ID = "655f6179-543f-45e7-a4ae-69bd9f179c52";
+  const TONY_ID = "daa974de-5f6e-4322-9919-e659326de0ac";
 
   let app: Application;
   let charRepo: Repository<Characters>;
+  let appearRepo: Repository<Appear>;
   // let accountRepo: Repository<Account>;
   // let transactionRepo: Repository<Transaction>;
 
@@ -44,6 +47,7 @@ describe("mcu manager", () => {
 
     app = getDefaultApp(APP_SECRET).app;
     charRepo = getRepository(Characters);
+    appearRepo = getRepository(Appear);
   });
 
   after(async () => {
@@ -144,6 +148,28 @@ describe("mcu manager", () => {
       // Exercise
       const res = await chai.request(app).delete(`/characters/${TEST_POST_ID}`);
       expect(res).to.have.status(204);
+    });
+  });
+
+  describe("appear services", () => {
+    it("should get a appear by charId", async () => {
+      const res = await chai.request(app).get(`/appear/${TONY_ID}`);
+      expect(res).to.have.status(200);
+
+      const expected = await appearRepo.find({
+        where: {
+          character: TONY_ID,
+        },
+        relations: ["film"],
+      });
+      // const expected = {
+      //   id: TEST_CHAR_ID,
+      //   realName: "tester",
+      //   superName: "Super-Test",
+      //   genderId: 2,
+      //   typesId: 2,
+      // };
+      expect(res.body).to.deep.equal(expected);
     });
   });
 });
