@@ -116,12 +116,12 @@ class FilmController extends BaseController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { charId } = req.params;
-      const newCharDetails = req.body;
-      const updatedChar = await this.manager.updateFilm(charId, newCharDetails);
+      const { filmId } = req.params;
+      const newFilmDetails = req.body;
+      const updatedFilm = await this.manager.updateFilm(filmId, newFilmDetails);
 
       // res.json(_.pick(updatedChar, ["id", "realName", "superName"]));
-      res.json(updatedChar);
+      res.json(updatedFilm);
     } catch (err) {
       next(err);
     }
@@ -135,10 +135,10 @@ class FilmController extends BaseController {
     res: Response,
     next: NextFunction
   ): Promise<void> => {
-    const { charId } = req.params;
+    const { filmId } = req.params;
 
     try {
-      await this.manager.removeFilm(charId);
+      await this.manager.removeFilm(filmId);
       res.status(204).end();
     } catch (err) {
       next(err);

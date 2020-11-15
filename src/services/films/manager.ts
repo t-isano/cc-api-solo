@@ -90,7 +90,6 @@ class FilmManager implements IManager {
     filmId: string,
     updates: Partial<Films>
   ): Promise<Films> {
-    // const user = await this.userRepository.findOne( userId );
     const film = await this.getFilmById(filmId);
     // if (!user) {
     //   throw new Error("userId not found");
