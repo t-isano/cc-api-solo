@@ -4,10 +4,6 @@ import Films from "../../entities/FilmModel";
 import { IManager } from "../common/manager";
 import { useRefreshDatabase } from "typeorm-seeding";
 
-interface CharactersInput extends Films {
-  password: string;
-}
-
 /**
  * Entity manager for User model
  * This is where you define logic to access data from database
@@ -68,7 +64,7 @@ class FilmManager implements IManager {
   /**
    * Create a new user
    */
-  public async createCharcter(
+  public async createFilm(
     // charDetails: Partial<CharactersInput>
     filmDetails: Partial<Films>
   ): Promise<Films> {
@@ -90,7 +86,7 @@ class FilmManager implements IManager {
    *
    * FIXME
    */
-  public async updateCharacter(
+  public async updateFilm(
     filmId: string,
     updates: Partial<Films>
   ): Promise<Films> {
@@ -119,14 +115,14 @@ class FilmManager implements IManager {
    *
    * FIXME
    */
-  public async removeCharacter(charId: string): Promise<DeleteResult | void> {
+  public async removeFilm(filmId: string): Promise<DeleteResult | void> {
     // const user = await this.userRepository.findOne( userId );
-    const char = await this.getFilmById(charId);
+    const film = await this.getFilmById(filmId);
     // if (!user) {
     //   throw new Error("userId not found");
     // }
 
-    await this.filmsRepository.remove(char);
+    await this.filmsRepository.remove(film);
   }
 
   /**

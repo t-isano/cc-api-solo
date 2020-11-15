@@ -54,7 +54,6 @@ class AppearManager implements IManager {
       },
       relations: ["film"],
     });
-    console.info(appear);
     // const appear = await this.appearRepository.findByIds(search, {
     //   relations: ["characters"]
     // });

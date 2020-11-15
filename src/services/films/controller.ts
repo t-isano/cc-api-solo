@@ -98,7 +98,7 @@ class FilmController extends BaseController {
   ): Promise<void> => {
     try {
       const charDetails = req.body;
-      const char = await this.manager.createCharcter(charDetails);
+      const char = await this.manager.createFilm(charDetails);
 
       // res.status(201).json(_.pick(char, ["id", "realName", "superName"]));
       res.status(201).json(char);
@@ -118,10 +118,7 @@ class FilmController extends BaseController {
     try {
       const { charId } = req.params;
       const newCharDetails = req.body;
-      const updatedChar = await this.manager.updateCharacter(
-        charId,
-        newCharDetails
-      );
+      const updatedChar = await this.manager.updateFilm(charId, newCharDetails);
 
       // res.json(_.pick(updatedChar, ["id", "realName", "superName"]));
       res.json(updatedChar);
@@ -141,7 +138,7 @@ class FilmController extends BaseController {
     const { charId } = req.params;
 
     try {
-      await this.manager.removeCharacter(charId);
+      await this.manager.removeFilm(charId);
       res.status(204).end();
     } catch (err) {
       next(err);
