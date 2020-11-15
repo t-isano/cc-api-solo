@@ -38,6 +38,6 @@ APIs for Appear.
 |Method| API | Contents |
 |:------ | :---------------------- | :---------------------------------------------- |
 |GET|/appear/:search | Get films information who appeard by `:search`|
-|POST|/appear | Create a new film information.|
+|POST|/appear | Create a new appear information.|
 |PATCH|/appear/:appearId | Update a appear information. (Not Implemented) |
-|DELETE|/appear/:appearId | Delete a film information. (Not Implemented) |
+|DELETE|/appear/:appearId | Delete a appear information. (Not Implemented) |

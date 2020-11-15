@@ -31,6 +31,7 @@ describe("mcu manager", () => {
   const TEST_CHAR_ID = "3461cac2-35bd-4d45-a163-f220beb43d76";
   const TEST_POST_ID = "655f6179-543f-45e7-a4ae-69bd9f179c52";
   const TONY_ID = "daa974de-5f6e-4322-9919-e659326de0ac";
+  const NATASHA_ID = "3136ee50-45a8-44c5-a6b4-7754e4ce464f";
   const CIVIL_WAR_ID = "898afa22-0389-4686-b93b-d18e124d3abc";
   const TEST_FILM_ID = "655f6180-543f-45e7-a4ae-69bd9f179c52";
   const TEST_FILM_ID_SETUP = "666f6180-543f-45e7-a4ae-69bd9f179c52";
@@ -40,8 +41,6 @@ describe("mcu manager", () => {
   let charRepo: Repository<Characters>;
   let filmRepo: Repository<Films>;
   let appearRepo: Repository<Appear>;
-  // let accountRepo: Repository<Account>;
-  // let transactionRepo: Repository<Transaction>;
 
   before(async () => {
     await DatabaseConnectionManager.connect();
@@ -54,12 +53,12 @@ describe("mcu manager", () => {
 
   after(async () => {
     // await charRepo.delete({ id: Not(IsNull()) });
+    await appearRepo.delete({ id: TEST_APPEAR_ID_SETUP });
+
     await charRepo.delete({ id: TEST_CHAR_ID });
     await charRepo.delete({ id: TEST_POST_ID });
 
     await filmRepo.delete({ id: TEST_FILM_ID_SETUP });
-
-    await appearRepo.delete({ id: TEST_APPEAR_ID_SETUP });
   });
 
   beforeEach(async () => {
@@ -78,9 +77,15 @@ describe("mcu manager", () => {
 
     let testFilm = new Films();
     testFilm.id = TEST_FILM_ID_SETUP;
-    testFilm.name = "Test Avengers:";
-    testFilm.releasedYear = 2030;
+    testFilm.name = "Test Avengers: This is test";
+    testFilm.releasedYear = 2099;
     testFilm = await filmRepo.save(testFilm);
+
+    // let testAppear = new Appear();
+    // testAppear.id = TEST_APPEAR_ID_SETUP;
+    // testAppear.character = testChar;
+    // testAppear.film = testFilm;
+    // testAppear = await appearRepo.save(testAppear);
 
     /**
      * Advanced Requirements:
@@ -89,7 +94,6 @@ describe("mcu manager", () => {
   });
 
   describe("character services", () => {
-    // it("should restrict access by unauthenticated user", async () => {
     it("should get a character by id", async () => {
       const res = await chai.request(app).get(`/characters/${TEST_CHAR_ID}`);
       expect(res).to.have.status(200);
@@ -251,11 +255,28 @@ describe("mcu manager", () => {
       const res = await chai.request(app).post(`/appear/`).send({
         id: TEST_APPEAR_ID_SETUP,
         characterId: TONY_ID,
-        filmId: CIVIL_WAR_ID,
+        filmId: TEST_FILM_ID_SETUP,
       });
       expect(res).to.have.status(201);
       const expected = await appearRepo.findOne(TEST_APPEAR_ID_SETUP);
       expect(res.body).to.deep.equal(expected);
     });
+
+    // it("should patch to udpate a appear", async () => {
+    //   // Setup
+    //   const patchAppear = {
+    //     characterId: NATASHA_ID,
+    //     filmId: TEST_FILM_ID_SETUP,
+    //   };
+
+    //   // Exercise
+    //   const res = await chai
+    //     .request(app)
+    //     .patch(`/appear/${TEST_APPEAR_ID_SETUP}`)
+    //     .send(patchAppear);
+    //   expect(res).to.have.status(200);
+    //   const expected = await appearRepo.findOne(TEST_APPEAR_ID_SETUP);
+    //   expect(res.body).to.deep.equal(expected);
+    // });
   });
 });
