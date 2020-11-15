@@ -31,3 +31,14 @@
 |POST|/films/ | 新しい映画作品の情報を登録する。 |
 |PATCH|/films/:film | `film` に紐付いた映画作品の情報を修正する。 |
 |DELETE|/films/:film | `film` に紐付いた映画作品の情報を削除する。 |
+
+## related Apper
+
+出演作品に関する API
+
+| Method | API               | 内容                                                  |
+| :----- | :---------------- | :---------------------------------------------------- |
+| GET    | /appear/:search   | `search` で指定したキャラクターの出演作品を取得する。 |
+| POST   | /appear/          | キャラクターの出演作品を登録する (Not Implemented)    |
+| PATCH  | /appear/:appearId | `appearId` の出演情報を修正する (Not Implemented)     |
+| DELETE | /appear/:appearId | `appearId` の出演情報を削除する (Not Implemented)     |

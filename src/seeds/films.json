@@ -1,18 +1,94 @@
 [
   {
+    "name": "Iron Man",
+    "releasedYear": 2008
+  },
+  {
+    "name": "The Incredible Hulk",
+    "releasedYear": 2008
+  },
+  {
+    "name": "Iron Man 2",
+    "releasedYear": 2010
+  },
+  {
+    "name": "Thor",
+    "releasedYear": 2011
+  },
+  {
+    "name": "Captain America: The First Avenger",
+    "releasedYear": 2011
+  },
+  {
     "name": "Avengers",
     "releasedYear": 2012
   },
   {
-    "name": "Avengers Age of Ultron",
+    "name": "Iron Man 3",
+    "releasedYear": 2013
+  },
+  {
+    "name": "Thor: The Dark World",
+    "releasedYear": 2013
+  },
+  {
+    "name": "Captain America: The Winter Soldier",
+    "releasedYear": 2014
+  },
+  {
+    "name": "Guardians of the Galaxy",
+    "releasedYear": 2014
+  },
+  {
+    "name": "Avengers: Age of Ultron",
     "releasedYear": 2015
   },
   {
-    "name": "Avengers Infinity War",
+    "name": "Ant-Man",
+    "releasedYear": 2015
+  },
+  {
+    "name": "Captain America: Civil War",
+    "releasedYear": 2016
+  },
+  {
+    "name": "Doctor Strange",
+    "releasedYear": 2016
+  },
+  {
+    "name": "Guardians of the Galaxy Vol. 2",
+    "releasedYear": 2017
+  },
+  {
+    "name": "Spider-Man: Homecoming",
+    "releasedYear": 2017
+  },
+  {
+    "name": "Thor: Ragnarok",
+    "releasedYear": 2017
+  },
+  {
+    "name": "Black Panther",
     "releasedYear": 2018
   },
   {
-    "name": "Avengers End Game",
+    "name": "Avengers: Infinity War",
+    "releasedYear": 2018
+  },
+  {
+    "name": "Ant-Man and the Wasp",
+    "releasedYear": 2018
+  },
+  {
+    "name": "Captain Marvel",
+    "releasedYear": 2019
+  },
+  {
+    "name": "Avengers: Endgame",
+    "releasedYear": 2019
+  },
+  {
+    "name": "Spider-Man: Far From Home",
     "releasedYear": 2019
   }
 ]

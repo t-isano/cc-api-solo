@@ -30,4 +30,14 @@ APIs for Films.
 |GET|/films/:film | Get films information by `film`.|
 |POST|/films/ | Create a new film information.|
 |PATCH|/films/:film | Update a film information.|
-|DELETE|/films/:film | Delete a film information.s|
+|DELETE|/films/:film | Delete a film information|
+
+## related Appear （Not Implemented ）
+
+APIs for Appear.
+|Method| API | Contents |
+|:------ | :---------------------- | :---------------------------------------------- |
+|GET|/appear/:search | Get films information who appeard by `:search`|
+|POST|/appear | Create a new film information.|
+|PATCH|/appear/:appearId | Update a appear information. (Not Implemented) |
+|DELETE|/appear/:appearId | Delete a film information. (Not Implemented) |
