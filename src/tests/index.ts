@@ -58,6 +58,8 @@ describe("mcu manager", () => {
     await charRepo.delete({ id: TEST_POST_ID });
 
     await filmRepo.delete({ id: TEST_FILM_ID_SETUP });
+
+    await appearRepo.delete({ id: TEST_APPEAR_ID_SETUP });
   });
 
   beforeEach(async () => {
