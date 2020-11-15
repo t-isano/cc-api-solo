@@ -95,11 +95,11 @@ class AppearController extends BaseController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const charDetails = req.body;
-      const char = await this.manager.createCharcter(charDetails);
+      const appearDetails = req.body;
+      const appear = await this.manager.createAppear(appearDetails);
 
       // res.status(201).json(_.pick(char, ["id", "realName", "superName"]));
-      res.status(201).json(char);
+      res.status(201).json(appear);
     } catch (err) {
       next(err);
     }

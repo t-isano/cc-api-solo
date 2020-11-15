@@ -79,7 +79,7 @@ class AppearManager implements IManager {
   /**
    * Create a new user
    */
-  public async createCharcter(
+  public async createAppear(
     // charDetails: Partial<CharactersInput>
     appearDetails: Partial<Appear>
   ): Promise<Appear> {

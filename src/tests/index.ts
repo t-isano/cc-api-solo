@@ -34,6 +34,7 @@ describe("mcu manager", () => {
   const CIVIL_WAR_ID = "898afa22-0389-4686-b93b-d18e124d3abc";
   const TEST_FILM_ID = "655f6180-543f-45e7-a4ae-69bd9f179c52";
   const TEST_FILM_ID_SETUP = "666f6180-543f-45e7-a4ae-69bd9f179c52";
+  const TEST_APPEAR_ID_SETUP = "777f6180-543f-45e7-a4ae-69bd9f179c52";
 
   let app: Application;
   let charRepo: Repository<Characters>;
@@ -241,6 +242,17 @@ describe("mcu manager", () => {
         relations: ["film"],
       });
 
+      expect(res.body).to.deep.equal(expected);
+    });
+
+    it("should post to create a new appear", async () => {
+      const res = await chai.request(app).post(`/appear/`).send({
+        id: TEST_APPEAR_ID_SETUP,
+        characterId: TONY_ID,
+        filmId: CIVIL_WAR_ID,
+      });
+      expect(res).to.have.status(201);
+      const expected = await appearRepo.findOne(TEST_APPEAR_ID_SETUP);
       expect(res.body).to.deep.equal(expected);
     });
   });
