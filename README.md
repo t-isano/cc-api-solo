@@ -21,7 +21,7 @@ APIs for Characters
 |PATCH|/characters/:char | Update a character inforamtion. |
 |DELETE|/characters/:char | Delete a character information. |
 
-## related Films （Not Implemented ）
+## related Films
 
 APIs for Films.
 |Method| API | Contents |

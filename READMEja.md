@@ -21,7 +21,7 @@
 |PATCH|/characters/:char | `char` に紐付いたキャラクター情報を修正する。 |
 |DELETE|/characters/:char | `char` に紐付いたキャラクター情報を削除する。 |
 
-## related Films （Not Implemented ）
+## related Films
 
 映画作品に関する API
 |Method| API | 内容 |
